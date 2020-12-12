@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
-import dj_database_url
-import django_heroku
+# import dj_database_url
+# import django_heroku
 # django_heroku.settings(locals())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -80,16 +80,16 @@ WSGI_APPLICATION = 'kimetsu.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DATABASE_NAME'),
-        'USER': os.environ.get('DATABASE_USER'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'HOST': os.environ.get('DATABASE_HOST'),
-        'PORT': os.environ.get('DATABASE_PORT'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': os.environ.get('DATABASE_NAME'),
+#         'USER': os.environ.get('DATABASE_USER'),
+#         'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+#         'HOST': os.environ.get('DATABASE_HOST'),
+#         'PORT': os.environ.get('DATABASE_PORT'),
+#     }
+# }
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -106,16 +106,16 @@ DATABASES = {
 #         'POST': '5432',
 #     }
 # }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'dch308rlikip3v',
-#         'USER': 'xpiasmorccksus',
-#         'PASSWORD': '7a598701961c497c7d41a0cfedd6d8e3fa445e9970c9367dbdc3cef56aaf474f',
-#         'HOST': 'ec2-52-71-153-228.compute-1.amazonaws.com',
-#         'POST': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dch308rlikip3v',
+        'USER': 'xpiasmorccksus',
+        'PASSWORD': '7a598701961c497c7d41a0cfedd6d8e3fa445e9970c9367dbdc3cef56aaf474f',
+        'HOST': 'ec2-52-71-153-228.compute-1.amazonaws.com',
+        'POST': '5432',
+    }
+}
 #postgres://xpiasmorccksus:7a598701961c497c7d41a0cfedd6d8e3fa445e9970c9367dbdc3cef56aaf474f@ec2-52-71-153-228.compute-1.amazonaws.com:5432/dch308rlikip3v
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -158,7 +158,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, "staticfiles"),
 # ]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 """
 prd use
