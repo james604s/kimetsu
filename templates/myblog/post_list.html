@@ -1,0 +1,99 @@
+<!--post_list.html-->
+
+{% extends 'base.html' %}
+
+{% block title %} Leonard Blog - 文章列表 {% endblock %}
+{% block content %}
+<main>
+  <div class="container" style="margin-top:2%">
+    <div class ="row">
+      <!--Alert class 並放大字體、利用hr標籤畫線分隔-->
+      <div class="col-md-8" style="margin-left:-8%">
+        <div class="alert alert-secondary" role="alert">
+          {% block post_list_title %}<h4>共有 {{ page_of_posts.paginator.count }} 篇文章</h4>{% endblock %}
+        </div>
+        {% for post in posts %}
+          <h2>{{ post.title }}</h2>
+          <p>作者:{{ post.author.username }} 分類:<a href="#">{{ post.category.name }}</a> 發文時間:{{ post.created_at|date:'Y-m-d h:m:s' }}</p>
+          <p>摘要:{{ post.summary }}</p>
+          <p><a class="btn btn-secondary" href="/myblog/post/{{ post.id }}" role="button">繼續閱讀 &raquo;</a></p>
+                      <!-- 若無文章，則顯示以下訊息 -->
+          <hr>
+        {% empty %}
+          <p>暫無文章，敬請期待</p>
+          <hr>
+        {% endfor %}
+        <div>
+          <!--頁碼實現-->
+          <ul class="pagination">
+            <li class="page-item">
+              <!--判斷是否有上一頁-->
+                {% if page_of_posts.has_previous %}
+                  <a class="page-link" href="?page={{ page_of_posts.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                {% else %}
+                  <span class="page-link" aria-hidden="true">&laquo;</span>
+                {% endif %}
+            </li>
+            <!--全部頁碼-->
+            {% for page_num in page_range_display%}
+              {% if page_num == page_of_posts.number %}
+                <li class="page-item active"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a></li>
+              {% else %}
+                {% if page_num == "..." %}
+                  <li>{{ page_num }}</li>
+                {% else %}
+                  <li><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a></li>
+                {% endif %}
+              {% endif %}
+            {% endfor %}  
+            <!--是否有下一頁 -->
+            <li class="page-item">
+              <!--判斷是否有上一頁-->
+                {% if page_of_posts.has_next %}
+                  <a class="page-link" href="?page={{ page_of_posts.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                {% else %}
+                  <span class="page-link" aria-hidden="true">&raquo;</span>
+                {% endif %}
+            </li>
+          </ul>
+          <p>
+            <!-- 總共有 {{ page_of_posts.paginator.count }} 篇文章 -->
+            目前正在第 {{ page_of_posts.number }} 頁, 共 {{ page_of_posts.paginator.num_pages }} 頁
+          </p>
+        </div>
+      </div>
+
+        <!-- 右區塊文章分類 -->
+      <!--Alert class 並放大字體-->
+      <div class="col-md-4" style="margin-left:8%">
+        <div class="alert alert-secondary" role="alert">
+          <h4>部落格分類</h4>
+        </div>
+          {% for c in category_list %}
+          <ul><a href="/myblog/post/category/{{ c.id }}">{{ c.name }}</a></ul>
+            <!-- <ul><a href={}/myblog/category/{{ c.pk }}">{{ c.name }}</a></ul> -->
+          <hr>
+          {% empty %}
+            <ul>暫無分類，敬請期待</ul>
+            <hr>
+          {% endfor %}
+          <div class="alert alert-secondary" role="alert">
+            <h4>日期分類</h4>
+          </div>
+          <ul style = "list-style-type: none;">
+            {% for post_date in posts_date %}
+              <a href="{% url 'post-category-date' post_date.year post_date.month %}">
+              {{ post_date|date:'Y/m' }}</a>
+            {% endfor %}
+          </ul>      
+      </div>
+  </div>
+
+  </div>
+  </div>
+</main>
+{% endblock %}

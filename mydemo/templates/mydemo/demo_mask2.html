@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main>
+  <h2>Test</h2>
+  {% autoescape off %}
+  {{ plot_div }}
+  {% endautoescape %}
+</main>
+{% endblock %}

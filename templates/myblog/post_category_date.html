@@ -1,0 +1,6 @@
+{% extends "myblog/post_list.html" %}
+{% block title %} 日期分類 : {{ post_by_categories.name }} {% endblock %}
+{% block post_list_title%}
+<h4>日期: {{ posts_with_date }} 共有 {{ posts_list|length }} 篇文章 </h4>
+<a href="/myblog/post" style"font-size:14px>返回文章列表</a>
+{% endblock %

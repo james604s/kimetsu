@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<form method="post">
+    {% csrf_token %}
+    &nbsp;&nbsp;&nbsp;{{ form }}
+    &nbsp;排序:
+    <input  type="radio" name="ordering" value="num_adult">大人
+    <input  type="radio" name="ordering" value="num_child">小孩&nbsp;
+    <button type="submit" name="submit" value="submit">送出</button>
+    <button type="submit" name="submit" value="reset">清除</button>
+    <br />
+    <table class="table table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">機構代號</th>
+          <th scope="col" class="text-nowrap">機構名</th>
+          <th scope="col" class="text-nowrap">地址</th>
+          <th scope="col" class="text-nowrap">電話</th>
+          <th scope="col" class="text-nowrap">成人口罩量</th>
+          <th scope="col" class="text-nowrap">兒童口罩量</th>
+          <th scope="col" class="text-nowrap">資料更新日</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for mask_data in mask_data_by_city %}
+          <tr>
+            <td>{{mask_data.agency_code}}  </td>
+            <td>{{mask_data.agency_name}}  </td>
+            <td>{{mask_data.agency_address}}  </td>
+            <td>{{mask_data.agency_phone}}  </td>
+            <td>{{mask_data.num_adult}}  </td>
+            <td>{{mask_data.num_child}}  </td>
+            <td>{{mask_data.update_at}}  </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</form>
+{% endblock %}

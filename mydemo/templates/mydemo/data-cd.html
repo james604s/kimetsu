@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<form method="POST" action="{% url 'data_cd' %}">
+    {% csrf_token %}
+    <input type="submit" value="create" name="action_type">
+    <input type="submit" value="delete" name="action_type">
+</form> 
+<br/>
+<!-- {% if msg %}
+    message: {{ msg.msg }}
+{% endif %} -->
+{% endblock %}
