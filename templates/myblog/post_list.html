@@ -74,8 +74,9 @@
           <h4>部落格分類</h4>
         </div>
           {% for c in category_list %}
-          <ul><a href="/myblog/post/category/{{ c.id }}">{{ c.name }}</a></ul>
-            <!-- <ul><a href={}/myblog/category/{{ c.pk }}">{{ c.name }}</a></ul> -->
+          <!-- <ul><a href="/myblog/post/category/{{ c.id }}"> -->
+            <ul><a href="{% url 'post-category' c.id %}">
+            {{ c.name }} ({{ c.blog_post_count }})</a></ul>
           <hr>
           {% empty %}
             <ul>暫無分類，敬請期待</ul>
@@ -85,9 +86,9 @@
             <h4>日期分類</h4>
           </div>
           <ul style = "list-style-type: none;">
-            {% for post_date in posts_date %}
+            {% for post_date, post_count in posts_date.items %}
               <a href="{% url 'post-category-date' post_date.year post_date.month %}">
-              {{ post_date|date:'Y/m' }}</a>
+              {{ post_date|date:'Y/m' }} ({{ post_count }})</a>
             {% endfor %}
           </ul>      
       </div>

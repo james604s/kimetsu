@@ -4,6 +4,7 @@ from django.views import View
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator
 from django.conf import settings
+from django.db.models import Count
 from myblog.models import *
 # Create your views here.
 
@@ -26,12 +27,24 @@ def get_blog_list_common_data(request, post_all_list):
         page_range_display.insert(0,1)
     if page_range_display[-1] != paginator.num_pages:
         page_range_display.append(paginator.num_pages)
+        
+    #Blog 分類數量
+    # BlogPostCategory.objects.annotate(blog_post_count=Count('blog_post'))
+    #Blog 分類 by日期
+    blog_post_dates = BlogPost.objects.dates("created_at", "month", order="DESC")
+    blog_post_date_dict = {}
+    for blog_post_date in blog_post_dates:
+        blog_count = BlogPost.objects.filter(created_at__year=blog_post_date.year
+                                             ,created_at__month=blog_post_date.month).count()
+        blog_post_date_dict[blog_post_date] = blog_count  
+        
     context = {}
     context['posts'] = page_of_posts.object_list
     context['page_of_posts'] = page_of_posts
     context['page_range_display'] = page_range_display
-    context['category_list'] = BlogPostCategory.objects.all()
-    context['posts_date'] = BlogPost.objects.dates('created_at', 'month', order="DESC")
+    context['category_list'] = BlogPostCategory.objects.annotate(blog_post_count=Count('blogpost'))
+    context['posts_date'] = blog_post_date_dict
+    print(blog_post_date_dict)
     return context
 
 class HomeView(View):
