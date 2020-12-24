@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from django.views import View
-from django.views.generic import ListView, DetailView
+# from django.views import View
+from django.views.generic import View ,ListView, DetailView
 from django.core.paginator import Paginator
 from django.conf import settings
 from django.db.models import Count
@@ -44,7 +44,6 @@ def get_blog_list_common_data(request, post_all_list):
     context['page_range_display'] = page_range_display
     context['category_list'] = BlogPostCategory.objects.annotate(blog_post_count=Count('blogpost'))
     context['posts_date'] = blog_post_date_dict
-    print(blog_post_date_dict)
     return context
 
 class HomeView(View):
@@ -99,47 +98,47 @@ class PostDateView(View):
     # def get_queryset(self):
     #     return BlogPost.objects.filter().order_by('created_at')
 
-class AboutView(View):
-    def get(self, request):
-        html = """
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
-        </head>
-        <body>
-        <h1> Leonard's Blog </h1>
-        <hr>
-        <p> I am Leonard Tseng. Oh Ya!</p>
-        <table width=400 border=1 bgcolor="#ccffcc">
-        {}
-        </table>
-        </body>
-        </html>
-        """
-        blog_post = BlogPost.objects.all()
-        tags = f"""
-        <tr>
-            <td>標題</td>
-            <td>摘要</td>
-            <td>類別</td>
-            <td>標籤</td>
-            <td>作者</td>
-        </tr>"""
-        for b in blog_post:
-            tags = tags + f"<tr><td>{b.title}</td>"
-            tags = tags + f"<td>{b.summary}</td>"
-            tags = tags + f"<td>{b.get_category()}</td>"
-            tags = tags + f"<td>{b.show_tags()}</td>"
-            tags = tags + f"<td>{b.author}</td></tr>"
-        return HttpResponse(html.format(tags))
+# class AboutView(View):
+#     def get(self, request):
+#         html = """
+#         <!DOCTYPE html>
+#         <html lang="en">
+#         <head>
+#             <meta charset="UTF-8">
+#             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+#             <title>Document</title>
+#         </head>
+#         <body>
+#         <h1> Leonard's Blog </h1>
+#         <hr>
+#         <p> I am Leonard Tseng. Oh Ya!</p>
+#         <table width=400 border=1 bgcolor="#ccffcc">
+#         {}
+#         </table>
+#         </body>
+#         </html>
+#         """
+#         blog_post = BlogPost.objects.all()
+#         tags = f"""
+#         <tr>
+#             <td>標題</td>
+#             <td>摘要</td>
+#             <td>類別</td>
+#             <td>標籤</td>
+#             <td>作者</td>
+#         </tr>"""
+#         for b in blog_post:
+#             tags = tags + f"<tr><td>{b.title}</td>"
+#             tags = tags + f"<td>{b.summary}</td>"
+#             tags = tags + f"<td>{b.get_category()}</td>"
+#             tags = tags + f"<td>{b.show_tags()}</td>"
+#             tags = tags + f"<td>{b.author}</td></tr>"
+#         return HttpResponse(html.format(tags))
     
-class DogView(View):
-    template_name = 'dog.html'
-    def get(self, request):
-        return render(request, self.template_name, {})
+# class DogView(View):
+#     template_name = 'dog.html'
+#     def get(self, request):
+#         return render(request, self.template_name, {})
         # html = f"<h3>dog num:{yyyy}/{dd}/{mm}/{dog_no} ya ya ya!</h3><hr>"
 
 # class DogView(View):
