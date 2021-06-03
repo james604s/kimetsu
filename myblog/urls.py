@@ -3,7 +3,7 @@ from myblog.views import *
 
 urlpatterns = [
     # path('home/', HomeView.as_view()),
-    path('post/', PostListView.as_view(), name='post'),
+    path('', PostListView.as_view(), name='post'),
     path('post/<int:pk>', PostDetailView.as_view(), name='post-detail'),
     path('post/category/<int:pk>', PostCategoryView.as_view(), name='post-category'),
     path('post/date/<int:yyyy>/<int:mm>',PostDateView.as_view(), name='post-category-date'),
